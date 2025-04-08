@@ -1,0 +1,243 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ portfolio.profile.name }} - Portfolio{% endblock %}
+
+{% block content %}
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+                {% for message in messages %}
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Notification</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Home/Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold">Hello, I'm <span class="highlight">{{ portfolio.profile.name }}</span></h1>
+                    <h2 class="lead">{{ portfolio.profile.title }}</h2>
+                    <div class="mt-4">
+                        <a href="#contact" class="btn btn-primary me-3">Contact Me</a>
+                        <a href="#projects" class="btn btn-outline-primary">View My Work</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="{{ url_for('static', filename=portfolio.profile.image) }}" alt="{{ portfolio.profile.name }}" class="hero-image img-fluid rounded-circle shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="about-content">
+                        <p class="lead">{{ portfolio.profile.bio }}</p>
+                        <div class="social-links mt-4">
+                            <a href="{{ portfolio.contact.social.linkedin }}" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="{{ portfolio.contact.social.github }}" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="{{ portfolio.contact.social.twitter }}" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Projects</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                {% for project in portfolio.projects %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card project-card h-100">
+                            <img src="{{ url_for('static', filename=project.image) }}" class="card-img-top" alt="{{ project.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ project.title }}</h5>
+                                <p class="card-text">{{ project.description }}</p>
+                                <div class="tags mb-3">
+                                    {% for tag in project.tags %}
+                                        <span class="badge rounded-pill bg-secondary">{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                                <a href="{{ project.link }}" class="btn btn-primary" target="_blank">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Skills</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                {% for skill in portfolio.skills %}
+                    <div class="col-md-6">
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between">
+                                <h5>{{ skill.name }}</h5>
+                                <span>{{ skill.level }}%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ skill.level }}%" aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Work Experience</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="timeline">
+                {% for exp in portfolio.experience %}
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>{{ exp.role }}</h4>
+                            <h5>{{ exp.company }}</h5>
+                            <p class="period">{{ exp.period }}</p>
+                            <p>{{ exp.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row">
+                {% if portfolio.education %}
+                    {% for edu in portfolio.education %}
+                        <div class="col-md-4">
+                            <div class="card education-card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ edu.degree }}</h4>
+                                    <h5 class="card-subtitle mb-2 text-muted">{{ edu.institution }}</h5>
+                                    <p class="card-text">
+                                        <span class="education-year">{{ edu.year }}</span>
+                                        <span class="education-score">Score: {{ edu.score }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Me</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h5>Email</h5>
+                                <p><a href="mailto:{{ portfolio.contact.email }}">{{ portfolio.contact.email }}</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h5>Phone</h5>
+                                <p><a href="tel:{{ portfolio.contact.phone }}">{{ portfolio.contact.phone }}</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h5>Location</h5>
+                                <p>{{ portfolio.contact.location }}</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-share-alt"></i>
+                            <div>
+                                <h5>Social Profiles</h5>
+                                <div class="social-links">
+                                    <a href="{{ portfolio.contact.social.linkedin }}" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                    <a href="{{ portfolio.contact.social.github }}" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                                    <a href="{{ portfolio.contact.social.twitter }}" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="contact-form">
+                    <div class="contact-form">
+                        <form action="{{ url_for('contact') }}" method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

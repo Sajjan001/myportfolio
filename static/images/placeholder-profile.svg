@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="#4A90E2"/>
+  
+  <!-- Profile silhouette -->
+  <circle cx="100" cy="85" r="40" fill="#FFFFFF"/>
+  <path d="M100,130 C65,130 40,155 40,190 L160,190 C160,155 135,130 100,130 Z" fill="#FFFFFF"/>
+  
+  <!-- Custom decorative elements - Data Science & ML themed -->
+  <g transform="translate(70, 70)">
+    <!-- Node pattern representing neural network / data connections -->
+    <circle cx="0" cy="0" r="3" fill="#50E3C2"/>
+    <circle cx="15" cy="-15" r="3" fill="#50E3C2"/>
+    <circle cx="30" cy="0" r="3" fill="#50E3C2"/>
+    <circle cx="15" cy="15" r="3" fill="#50E3C2"/>
+    <circle cx="60" cy="0" r="3" fill="#50E3C2"/>
+    
+    <!-- Connections between nodes -->
+    <line x1="0" y1="0" x2="15" y2="-15" stroke="#50E3C2" stroke-width="1.5"/>
+    <line x1="15" y1="-15" x2="30" y2="0" stroke="#50E3C2" stroke-width="1.5"/>
+    <line x1="30" y1="0" x2="15" y2="15" stroke="#50E3C2" stroke-width="1.5"/>
+    <line x1="15" y1="15" x2="0" y2="0" stroke="#50E3C2" stroke-width="1.5"/>
+    <line x1="30" y1="0" x2="60" y2="0" stroke="#50E3C2" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Initials overlay - subtle -->
+  <text x="100" y="90" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="rgba(0,0,0,0.1)">SY</text>
+</svg>
